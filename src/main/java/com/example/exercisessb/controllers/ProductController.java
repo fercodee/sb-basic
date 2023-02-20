@@ -3,7 +3,6 @@ package com.example.exercisessb.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,8 +17,7 @@ public class ProductController {
     private ProductRepository productRepository;
 
     @PostMapping
-    public @ResponseBody Product newProduct(@RequestParam String name) {
-        Product product = new Product(name);
+    public @ResponseBody Product newProduct(Product product) {
         productRepository.save(product);
         return product;
     }
