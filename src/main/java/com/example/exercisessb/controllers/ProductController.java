@@ -1,6 +1,12 @@
 package com.example.exercisessb.controllers;
 
+import java.util.Optional;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,9 +23,19 @@ public class ProductController {
     private ProductRepository productRepository;
 
     @PostMapping
-    public @ResponseBody Product newProduct(Product product) {
+    public @ResponseBody Product newProduct(@Valid Product product) {
         productRepository.save(product);
         return product;
+    }
+
+    @GetMapping
+    public Iterable<Product> getAllProducts() {
+        return productRepository.findAll();
+    }
+
+    @GetMapping(path = "/{id}")
+    public Optional<Product> getProductById(@PathVariable int id) {
+        return productRepository.findById(id);
     }
 
 }
