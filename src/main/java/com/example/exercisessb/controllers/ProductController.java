@@ -36,6 +36,11 @@ public class ProductController {
         return productRepository.findAll();
     }
 
+    @GetMapping(path = "/name/{namePart}")
+    public Iterable<Product> getAProductsByName(@PathVariable String namePart) {
+        return productRepository.findByNameContainingIgnoreCase(namePart);
+    }
+
     @GetMapping(path = "/page/{pageNumber}")
     public Iterable<Product> getProductsByPage(@PathVariable int pageNumber) {
         Pageable page = PageRequest.of(pageNumber, 3);
